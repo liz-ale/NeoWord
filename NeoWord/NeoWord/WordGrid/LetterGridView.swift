@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct LetterGridView: View {
-    let columns: [GridItem] = Array(repeating: .init(.fixed(50)), count: 5) //columnas
-    let letters = Array(repeating: "", count: 30) // casillas
+    let columns: [GridItem] = Array(repeating: GridItem(.fixed(50)), count: 5)
+    let letters = Array(repeating: "", count: 30)
     
     var body: some View {
         LazyVGrid(columns: columns, spacing: 10) {
