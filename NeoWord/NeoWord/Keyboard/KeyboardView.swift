@@ -17,13 +17,11 @@ struct KeyboardView: View {
     
     var body: some View {
         VStack {
-            
             // First row
             HStack(spacing: 8) {
                 ForEach(keys1, id: \.self) { key in
                     KeyboardKey {
-                        print(key)
-                        pressedKey = key
+                        pressKey(key)
                     } keyLabel: {
                         Text(key)
                     }
@@ -34,7 +32,7 @@ struct KeyboardView: View {
             HStack(spacing: 8) {
                 ForEach(keys2, id: \.self) { key in
                     KeyboardKey {
-                        print(key)
+                        pressKey(key)
                     } keyLabel: {
                         Text(key)
                     }
@@ -45,7 +43,7 @@ struct KeyboardView: View {
             HStack(spacing: 8) {
                 // enter
                 KeyboardKey {
-                    print("ENTER")
+                    pressKey("ENTER")
                 } keyLabel: {
                     Text("ENTER")
                 }
@@ -53,7 +51,7 @@ struct KeyboardView: View {
                 
                 ForEach(keys3, id: \.self) { key in
                     KeyboardKey {
-                        print(key)
+                        pressKey(key)
                     } keyLabel: {
                         Text(key)
                     }
@@ -61,7 +59,7 @@ struct KeyboardView: View {
                 
                 // back
                 KeyboardKey {
-                    print("DELETE")
+                    pressKey("DELETE")
                 } keyLabel: {
                     Image(systemName: "delete.left")
                 }
@@ -69,7 +67,11 @@ struct KeyboardView: View {
             }
         }
         .padding(.horizontal, 8)
-        .frame(width: .infinity)
+    }
+    
+    func pressKey(_ key: String) {
+        print("Pressed key: \(key)")
+        self.pressedKey = key
     }
 }
 

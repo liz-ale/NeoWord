@@ -32,11 +32,6 @@ struct KeyboardKey<KeyLabel>: View where KeyLabel : View {
                 .frame(maxWidth: 60, maxHeight: 60)
                 .background(color)
                 .clipShape(.buttonBorder)
-//                            .overlay {
-//                                RoundedRectangle(cornerRadius: 8)
-//                                    .stroke(lineWidth: 1)
-//                                    .foregroundStyle(.black)
-//                            }
         }
     }
     
@@ -44,7 +39,7 @@ struct KeyboardKey<KeyLabel>: View where KeyLabel : View {
         let nextState = state + 1
         
         state = nextState % 4
-         
+        
         withAnimation {
             color = switch state {
             case 0:
