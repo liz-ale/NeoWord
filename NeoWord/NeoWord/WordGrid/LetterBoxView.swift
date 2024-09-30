@@ -13,7 +13,7 @@ struct LetterBoxView: View {
     var body: some View {
         Text(letter)
             .frame(width: 50, height: 50)
-            .background(Color.gray.opacity(0.2))
+            //.background(Color.gray.opacity(0.2))
             .cornerRadius(5)
             .font(.title)
             .foregroundColor(.black)
@@ -23,3 +23,8 @@ struct LetterBoxView: View {
             )
     }
 }
+
+#Preview {
+    LetterBoxView(letter: "A")
+}
+
