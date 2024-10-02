@@ -7,19 +7,22 @@
 
 import SwiftUI
 
-struct KeyboardKeyView<T>: View where T : View {
+struct KeyboardKey<KeyLabel>: View where KeyLabel : View {
     
     @State var color: Color = Color.gray.opacity(0.2)
     
     @State private var state: Int = 0
     
-    var key: () -> T
+    var action: () -> Void
+    
+    var keyLabel: () -> KeyLabel
     
     var body: some View {
         Button {
+            action()
             setState()
         } label: {
-            key()
+            keyLabel()
                 .font(.system(size: 24, weight: .bold))
                 .scaledToFit()
                 .minimumScaleFactor(0.01)
@@ -29,11 +32,6 @@ struct KeyboardKeyView<T>: View where T : View {
                 .frame(maxWidth: 60, maxHeight: 60)
                 .background(color)
                 .clipShape(.buttonBorder)
-//                            .overlay {
-//                                RoundedRectangle(cornerRadius: 8)
-//                                    .stroke(lineWidth: 1)
-//                                    .foregroundStyle(.black)
-//                            }
         }
     }
     
@@ -41,8 +39,6 @@ struct KeyboardKeyView<T>: View where T : View {
         let nextState = state + 1
         
         state = nextState % 4
- 
-        print(state)
         
         withAnimation {
             color = switch state {
@@ -60,5 +56,9 @@ struct KeyboardKeyView<T>: View where T : View {
 }
 
 #Preview {
-    KeyboardKeyView { Text("A") }
+    KeyboardKey {
+        print("A")
+    } keyLabel: {
+        Text("A")
+    }
 }
