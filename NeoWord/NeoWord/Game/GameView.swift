@@ -12,10 +12,10 @@ struct GameView: View {
     
     var body: some View {
         VStack {
-            LetterGridView(grid: $viewModel.grid)
+            LetterGridView(grid: viewModel.grid)
             KeyboardView(
-                viewModel: $viewModel
-)
+                viewModel: viewModel
+            )
         }
     }
 }

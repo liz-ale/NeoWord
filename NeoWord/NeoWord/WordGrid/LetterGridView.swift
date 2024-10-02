@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LetterGridView: View {
     
-    @Binding var grid: [LetterBox]
+    var grid: [LetterBox]
     
     let columns: [GridItem] = Array(repeating: GridItem(.fixed(60), spacing: 10), count: 5)
     
@@ -39,5 +39,5 @@ struct LetterGridView: View {
 }
 
 #Preview {
-    LetterGridView(grid: .constant([]))
+    LetterGridView(grid: [])
 }

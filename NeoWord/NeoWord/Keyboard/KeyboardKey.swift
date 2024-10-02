@@ -9,7 +9,7 @@ import SwiftUI
 
 struct KeyboardKey<KeyLabel>: View where KeyLabel : View {
     
-    var state: LetterBoxState = .empty
+    var state: LetterBoxState
     
     var action: () -> Void
     
