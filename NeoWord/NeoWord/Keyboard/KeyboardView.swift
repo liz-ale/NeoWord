@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct KeyboardView: View {
-    
-    @State var pressedKey: String? = nil
-    
+        
+    @Binding var viewModel: GameViewModel
+        
     let keys1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"]
     let keys2 = ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Ñ"]
     let keys3 = ["Z", "X", "C", "V", "B", "N", "M"]
@@ -20,7 +20,7 @@ struct KeyboardView: View {
             // First row
             HStack(spacing: 8) {
                 ForEach(keys1, id: \.self) { key in
-                    KeyboardKey {
+                    KeyboardKey(state: viewModel.keyboardStates[key] ?? .empty) {
                         pressKey(key)
                     } keyLabel: {
                         Text(key)
@@ -31,7 +31,7 @@ struct KeyboardView: View {
             // Second row
             HStack(spacing: 8) {
                 ForEach(keys2, id: \.self) { key in
-                    KeyboardKey {
+                    KeyboardKey(state: viewModel.keyboardStates[key] ?? .empty) {
                         pressKey(key)
                     } keyLabel: {
                         Text(key)
@@ -50,7 +50,7 @@ struct KeyboardView: View {
                 .frame(width: 56)
                 
                 ForEach(keys3, id: \.self) { key in
-                    KeyboardKey {
+                    KeyboardKey(state: viewModel.keyboardStates[key] ?? .empty) {
                         pressKey(key)
                     } keyLabel: {
                         Text(key)
@@ -70,11 +70,12 @@ struct KeyboardView: View {
     }
     
     func pressKey(_ key: String) {
-        print("Pressed key: \(key)")
-        self.pressedKey = key
+        viewModel.appendLetter(letter: key)
     }
 }
 
 #Preview {
-    KeyboardView()
+    KeyboardView(
+        viewModel: .constant(.init())
+    )
 }
