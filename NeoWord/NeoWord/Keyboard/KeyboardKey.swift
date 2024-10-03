@@ -9,9 +9,7 @@ import SwiftUI
 
 struct KeyboardKey<KeyLabel>: View where KeyLabel : View {
     
-    @State var color: Color = Color.gray.opacity(0.2)
-    
-    @State private var state: Int = 0
+    var state: LetterBoxState
     
     var action: () -> Void
     
@@ -20,7 +18,6 @@ struct KeyboardKey<KeyLabel>: View where KeyLabel : View {
     var body: some View {
         Button {
             action()
-            setState()
         } label: {
             keyLabel()
                 .font(.system(size: 24, weight: .bold))
@@ -35,30 +32,24 @@ struct KeyboardKey<KeyLabel>: View where KeyLabel : View {
         }
     }
     
-    private func setState() {
-        let nextState = state + 1
-        
-        state = nextState % 4
-        
-        withAnimation {
-            color = switch state {
-            case 0:
-                Color.gray.opacity(0.2)
-            case 1:
-                Color.yellow
-            case 2:
-                Color.green
-            default:
-                Color.gray
-            }
+    private var color: Color {
+        switch state {
+        case .empty:
+            Color.gray.opacity(0.2)
+        case .wrongPosition:
+            Color.yellow
+        case .good:
+            Color.green
+        case .wrongLetter:
+            Color.gray
         }
     }
 }
 
 #Preview {
-    KeyboardKey {
-        print("A")
-    } keyLabel: {
-        Text("A")
-    }
+    KeyboardKey(
+        state: .empty,
+        action: {},
+        keyLabel: { Text("") }
+    )
 }

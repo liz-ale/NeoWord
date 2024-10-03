@@ -16,12 +16,13 @@ enum LetterState {
 }
 
 struct LetterBoxView: View {
-    var letter: String
+    var letterBox: LetterBox?
+    
     @State private var currentState: LetterState = .idle
     @State private var scale: CGFloat = 1.0
     
     var body: some View {
-        Text(letter)
+        Text(letterBox?.letter ?? "")
             .frame(width: 60, height: 60)
             .background(backgroundColor)
             .cornerRadius(5)
@@ -41,18 +42,32 @@ struct LetterBoxView: View {
     
     //Cambiar color según estado actual
     private var backgroundColor: Color {
-        switch currentState {
-        case .idle:
-            return Color.white
-        case .zoom:
-            return Color.gray.opacity(0.2)
-        case .grayBackground:
-            return Color.gray
-        case .greenBackground:
-            return Color.green
-        case .yellowBackground:
-            return Color.yellow
+        guard let letterBox = letterBox else { return .white }
+        
+        return switch letterBox.state {
+        case .empty:
+            Color.white
+        case .good:
+            Color.green
+        case .wrongPosition:
+            Color.yellow
+        case .wrongLetter:
+            Color.gray
         }
+        
+        
+//        switch currentState {
+//        case .idle:
+//            return Color.white
+//        case .zoom:
+//            return Color.gray.opacity(0.2)
+//        case .grayBackground:
+//            return Color.gray
+//        case .greenBackground:
+//            return Color.green
+//        case .yellowBackground:
+//            return Color.yellow
+//        }
     }
     
     // Cambiar color del texto según estado actual
@@ -89,6 +104,6 @@ struct LetterBoxView: View {
 }
 
 #Preview {
-    LetterBoxView(letter: "A")
+    LetterBoxView(letterBox: .init(letter: "A", state: .good))
 }
 
