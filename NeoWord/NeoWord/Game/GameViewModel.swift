@@ -14,6 +14,8 @@ final class GameViewModel {
     private let gameValidator: GameValidator
     
     // game state
+    var currentWord = "CHILL"
+    
     var grid = [LetterBox]()
     
     var keyboardStates = [String : LetterBoxState]()
@@ -46,7 +48,7 @@ final class GameViewModel {
                 
                 Task(priority: .high) {
                     // update grid
-                    let validations = try await gameValidator.validate(word)
+                    let validations = try await gameValidator.validate(word, with: currentWord)
                     
                     
                     
@@ -72,10 +74,10 @@ final class GameViewModel {
                                 print("\(letter): \(oldState) -> \(newState)")
                                 
                                 switch oldState {
-                                case .good:
+                                case .correctPosition:
                                     break
                                 case .wrongPosition:
-                                    if newState == .good {
+                                    if newState == .correctPosition {
                                         // actualizar estado al nuevo
                                         newKeyboardStates[letter] = newState
                                     }

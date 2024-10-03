@@ -8,7 +8,7 @@
 import Foundation
 
 protocol Validator {
-    func validate(_ input: String) async throws -> [LetterBox]
+    func validate(_ input: String, with currentWord: String) async throws -> [LetterBox]
 }
 
 protocol WordStore {
@@ -26,23 +26,54 @@ class WordStoreManager: WordStore {
 }
 
 final class GameValidator: Validator {
-        
-    var db = "thank"
     
-    func validate(_ input: String) async throws -> [LetterBox] {
+    var wordStore: WordStore
+    
+    init(
+        wordStore: WordStore = WordStoreManager()
+    ) {
+        self.wordStore = wordStore
+    }
+    
+    func validate(_ input: String, with currentWord: String) async throws -> [LetterBox] {
+        assert(input.count == 5) // number of letters
+        assert(currentWord.count == 5)
+        
         print("validating: \(input)")
-        /*
-         1. verificar que exista
-         2. validar letras
-            - contiene letra
-            - pos
-         3. modificar estado
-         
-         */
         
+        // 1. validate word exists
+        guard try await wordStore.exist(word: input) else {
+            // word do not exist
+            return []
+        }
         
-        let letterStates: [LetterBox] = input.map { char in
-                .init(letter: String(char), state: LetterBoxState.random)
+        var letterStates = [LetterBox]()
+        
+        // get arrays for easy manipulation
+        let inputArray = Array(input.uppercased())
+        let currentWordArray = Array(currentWord.uppercased())
+        
+        // sets for getting the common letters
+        let inputLetters = Set(inputArray)
+        let currentWordLetters = Set(currentWordArray)
+        let commonLetters = inputLetters.intersection(currentWordLetters)
+        
+        inputArray.enumerated().forEach { i, letter in
+            if commonLetters.contains(letter)  {
+                letterStates.append(
+                    .init(
+                        letter: String(letter),
+                        state: letter == currentWordArray[i] ? .correctPosition : .wrongPosition
+                    )
+                )
+            } else {
+                letterStates.append(
+                    .init(
+                        letter: String(letter),
+                        state: .wrongLetter
+                    )
+                )
+            }
         }
         
         return letterStates

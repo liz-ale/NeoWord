@@ -47,7 +47,7 @@ struct LetterBoxView: View {
         return switch letterBox.state {
         case .empty:
             Color.white
-        case .good:
+        case .correctPosition:
             Color.green
         case .wrongPosition:
             Color.yellow
@@ -104,6 +104,6 @@ struct LetterBoxView: View {
 }
 
 #Preview {
-    LetterBoxView(letterBox: .init(letter: "A", state: .good))
+    LetterBoxView(letterBox: .init(letter: "A", state: .correctPosition))
 }
 

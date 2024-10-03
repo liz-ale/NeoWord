@@ -38,7 +38,7 @@ struct KeyboardKey<KeyLabel>: View where KeyLabel : View {
             Color.gray.opacity(0.2)
         case .wrongPosition:
             Color.yellow
-        case .good:
+        case .correctPosition:
             Color.green
         case .wrongLetter:
             Color.gray
