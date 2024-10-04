@@ -13,7 +13,7 @@ struct LetterBox: Equatable {
 
 enum LetterBoxState: CaseIterable {
     case empty
-    case good
+    case correctPosition
     case wrongPosition
     case wrongLetter
     
