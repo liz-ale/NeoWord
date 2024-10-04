@@ -11,19 +11,19 @@ protocol Validator {
     func validate(_ input: String) async throws -> [LetterBox]
 }
 
-protocol WordStore {
-    func getRandomWord() async throws -> String
-    func exist(word: String) async throws -> Bool
-}
-
-class WordStoreManager: WordStore {
-    func getRandomWord() async throws -> String {
-        "thank"
-    }
-    func exist(word: String) async throws -> Bool {
-        true
-    }
-}
+//protocol WordStore {
+//    func getRandomWord() async throws -> String
+//    func exist(word: String) async throws -> Bool
+//}
+//
+//class WordStoreManager: WordStore {
+//    func getRandomWord() async throws -> String {
+//        "thank"
+//    }
+//    func exist(word: String) async throws -> Bool {
+//        true
+//    }
+//}
 
 final class GameValidator: Validator {
         
