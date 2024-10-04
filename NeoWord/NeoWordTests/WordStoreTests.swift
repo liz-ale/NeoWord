@@ -11,27 +11,48 @@ import XCTest
 class WordStoreTests: XCTestCase {
     var wordStore: WordStoreManagement!
 
-        override func setUp() {
-            super.setUp()
-            wordStore = WordStoreManagement() // Inicializa la clase que deseas probar
-        }
+    override func setUp() {
+        super.setUp()
+        wordStore = WordStoreManagement()
+    }
 
-        override func tearDown() {
-            wordStore = nil
-            super.tearDown()
-        }
+    override func tearDown() {
+        wordStore = nil
+        super.tearDown()
+    }
 
-        // Prueba para obtener una palabra aleatoria
-        func testGetRandomWord() async throws {
-            let randomWord = try await wordStore.getRandomWord()
-            XCTAssertNotNil(randomWord, "La palabra aleatoria no debe ser nil")
-            print("Palabra aleatoria: \(randomWord)")
-        }
+    func testGetRandomWord() async throws {
+        // Llamada inicial para obtener una palabra aleatoria (debería cargar los datos)
+        let randomWord = try await wordStore.getRandomWord()
+        XCTAssertNotNil(randomWord, "La palabra aleatoria no debe ser nil")
+        print("Primera palabra aleatoria: \(randomWord)")
 
-        // Prueba para verificar si una palabra existe
-        func testExistWord() async throws {
-            let word = "banana"
-            let exists = try await wordStore.exist(word: word)
-            XCTAssertTrue(exists, "La palabra '\(word)' debe existir en la lista")
-        }
+        // Segunda llamada para obtener otra palabra (usando cachedWords)
+        let anotherRandomWord = try await wordStore.getRandomWord()
+        XCTAssertNotNil(anotherRandomWord, "La segunda palabra aleatoria no debe ser nil")
+        print("Segunda palabra aleatoria: \(anotherRandomWord)")
+        
+        // Asegurar que las palabras puedan ser diferentes
+        XCTAssertNotEqual(randomWord, anotherRandomWord, "Las palabras aleatorias deben ser diferentes (aunque podrían coincidir por azar)")
+    }
+
+    func testExistWord() async throws {
+        let word = "abeja"
+
+        // Verificación inicial de la existencia de una palabra
+        let exists = try await wordStore.exist(word: word)
+        XCTAssertTrue(exists, "La palabra '\(word)' debe existir en la lista")
+
+        // Verificación utilizando los datos almacenados en caché
+        let cachedExists = try await wordStore.exist(word: word)
+        XCTAssertTrue(cachedExists, "La palabra '\(word)' debe existir en la lista (usando caché)")
+    }
+
+    func testNonExistingWord() async throws {
+        let word = "noexiste"
+        
+        // Verificación de que una palabra no existe
+        let exists = try await wordStore.exist(word: word)
+        XCTAssertFalse(exists, "La palabra '\(word)' no debe existir en la lista")
+    }
 }

@@ -19,22 +19,33 @@ enum WordStoreError: Error {
 }
 
 class WordStoreManagement: WordStore {
+    private var cachedWords: Words?
 
     func getData() throws -> Words {
-        guard let url = Bundle.main.url(forResource: "BankWord", withExtension: "json") else { throw WordStoreError.fileNoteFound }
+        if let cachedWords = cachedWords {
+            return cachedWords
+        }
+
+        guard let url = Bundle.main.url(forResource: "BankWord", withExtension: "json") else {
+            throw WordStoreError.fileNoteFound
+        }
         let data = try Data(contentsOf: url)
         let words = try JSONDecoder().decode(Words.self, from: data)
+
+        cachedWords = words
         return words
     }
-    
+
     func getRandomWord() async throws -> String {
-        let wordsData = try getData()
-        guard let randomWord = wordsData.words.randomElement() else { throw WordStoreError.dataCorrupted }
+        let wordsData = try cachedWords ?? getData()
+        guard let randomWord = wordsData.words.randomElement() else {
+            throw WordStoreError.dataCorrupted
+        }
         return randomWord
     }
     
     func exist(word: String) async throws -> Bool {
-        let wordsData = try getData()
+        let wordsData = try cachedWords ?? getData()
         return wordsData.words.contains(word)
     }
 }
