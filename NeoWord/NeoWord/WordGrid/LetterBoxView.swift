@@ -33,11 +33,11 @@ struct LetterBoxView: View {
                     .stroke(Color.gray, lineWidth: 1)
             )
             .scaleEffect(scale)
-            .onTapGesture {
-                triggerAnimation()
-            }
-            .animation(.easeInOut(duration: 0.3), value: scale)
-            .animation(.easeInOut(duration: 0.3), value: currentState)
+//            .onTapGesture {
+//                triggerAnimation()
+//            }
+//            .animation(.easeInOut(duration: 0.3), value: scale)
+//            .animation(.easeInOut(duration: 0.3), value: currentState)
     }
     
     //Cambiar color según estado actual
@@ -54,20 +54,6 @@ struct LetterBoxView: View {
         case .wrongLetter:
             Color.gray
         }
-        
-        
-//        switch currentState {
-//        case .idle:
-//            return Color.white
-//        case .zoom:
-//            return Color.gray.opacity(0.2)
-//        case .grayBackground:
-//            return Color.gray
-//        case .greenBackground:
-//            return Color.green
-//        case .yellowBackground:
-//            return Color.yellow
-//        }
     }
     
     // Cambiar color del texto según estado actual
@@ -104,6 +90,8 @@ struct LetterBoxView: View {
 }
 
 #Preview {
-    LetterBoxView(letterBox: .init(letter: "A", state: .correctPosition))
+    LetterBoxView(
+        letterBox: .init(letter: "A", state: .correctPosition)
+    )
 }
 
