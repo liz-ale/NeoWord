@@ -18,10 +18,12 @@ final class GameViewModel {
     
     private let gameValidator: GameValidator
     
+    private let wordManager: WordStoreManager
+    
     // game state
     var gameState = GameState.playing
     
-    var currentWord = "CHILL"
+    var currentWord: String = ""
     
     var grid = [LetterBox]()
     
@@ -31,10 +33,26 @@ final class GameViewModel {
     
     init(
         gameValidator: GameValidator = .init(),
+        wordManager: WordStoreManager = .init(),
         grid: [LetterBox] = .init()
     ) {
         self.gameValidator = gameValidator
+        self.wordManager = wordManager
         self.grid = grid
+        
+        
+        // start game
+        start()
+    }
+    
+    private func start() {
+        Task {
+            let newWord = try await wordManager.getRandomWord()
+            
+            Task { @MainActor in
+                self.currentWord = newWord
+            }
+        }
     }
     
     
@@ -90,6 +108,11 @@ final class GameViewModel {
                 
                 Task { @MainActor in
                     
+                    guard !validations.isEmpty else {
+                        print("No se encontró la palabra ingresada")
+                        return
+                    }
+
                     var x = 0
                     for i in p...q {
                         grid[i].state = validations[x].state
@@ -97,6 +120,7 @@ final class GameViewModel {
                     }
                     
                     var newKeyboardStates = keyboardStates
+
                     
                     // update keyboard
                     validations.forEach { validation in
