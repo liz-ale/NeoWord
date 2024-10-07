@@ -18,7 +18,7 @@ enum WordStoreError: Error {
     case decodingFailed
 }
 
-class WordStoreManagement: WordStore {
+class WordStoreManager: WordStore {
     private var cachedWords: Words?
 
     func getData() throws -> Words {
@@ -41,11 +41,16 @@ class WordStoreManagement: WordStore {
         guard let randomWord = wordsData.words.randomElement() else {
             throw WordStoreError.dataCorrupted
         }
+        
+        print(randomWord)
+        
         return randomWord
     }
     
     func exist(word: String) async throws -> Bool {
         let wordsData = try cachedWords ?? getData()
-        return wordsData.words.contains(word)
+        return wordsData.words.contains { string in
+            string.localizedCaseInsensitiveContains(word)
+        }
     }
 }

@@ -8,6 +8,6 @@
 import Foundation
 
 struct Words: Codable, Hashable {
-    let words: [String]
+    let words: Set<String>
 }
 

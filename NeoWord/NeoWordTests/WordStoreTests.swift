@@ -9,11 +9,11 @@ import XCTest
 @testable import NeoWord
 
 class WordStoreTests: XCTestCase {
-    var wordStore: WordStoreManagement!
+    var wordStore: WordStoreManager!
 
     override func setUp() {
         super.setUp()
-        wordStore = WordStoreManagement()
+        wordStore = WordStoreManager()
     }
 
     override func tearDown() {
