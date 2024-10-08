@@ -18,8 +18,8 @@ enum LetterState {
 struct LetterBoxView: View {
     var letterBox: LetterBox?
     
-    @State private var currentState: LetterState = .idle
     @State private var scale: CGFloat = 1.0
+    @State private var borderColor: Color = .gray
     
     var body: some View {
         Text(letterBox?.letter ?? "")
@@ -27,20 +27,20 @@ struct LetterBoxView: View {
             .background(backgroundColor)
             .cornerRadius(5)
             .font(.title)
-            .foregroundColor(textColor)
+            .foregroundColor(textColor) // Se ajusta el color del texto
             .overlay(
                 RoundedRectangle(cornerRadius: 5)
-                    .stroke(Color.gray, lineWidth: 1)
+                    .stroke(borderColor, lineWidth: 2)
             )
             .scaleEffect(scale)
-//            .onTapGesture {
-//                triggerAnimation()
-//            }
-//            .animation(.easeInOut(duration: 0.3), value: scale)
-//            .animation(.easeInOut(duration: 0.3), value: currentState)
+            .onAppear {
+                triggerAnimation() // Iniciar la animación cuando aparezca la letra
+            }
+            .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: scale)
+            .animation(.easeInOut(duration: 0.3), value: borderColor)
     }
     
-    //Cambiar color según estado actual
+    // Cambiar color según estado actual
     private var backgroundColor: Color {
         guard let letterBox = letterBox else { return .white }
         
@@ -56,35 +56,26 @@ struct LetterBoxView: View {
         }
     }
     
-    // Cambiar color del texto según estado actual
+    // Cambiar color del texto según el estado
     private var textColor: Color {
-        switch currentState {
-        case .idle, .zoom:
-            return Color.black
-        case .grayBackground, .greenBackground, .yellowBackground:
-            return Color.white
-        }
+        guard let letterBox = letterBox else { return Color.black }
+        
+        // El texto es negro mientras se ingresa la letra (estado vacío)
+        return letterBox.state == .empty ? Color.black : Color.white
     }
     
-    // Activar la animación y cambiar el estado
+    // Activar animación de respiración
     private func triggerAnimation() {
-        switch currentState {
-        case .idle:
+        withAnimation {
+            scale = 0.8
+            borderColor = .gray
+        }
+
+        // Restaurar al tamaño original
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             withAnimation {
-                scale = 0.8 // Zoom out
-                currentState = .zoom
+                scale = 1.0
             }
-            withAnimation(Animation.easeInOut(duration: 0.3).delay(0.3)) {
-                scale = 1.1 // Zoom in
-            }
-        case .zoom:
-            currentState = .grayBackground
-        case .grayBackground:
-            currentState = .greenBackground
-        case .greenBackground:
-            currentState = .yellowBackground
-        case .yellowBackground:
-            currentState = .idle
         }
     }
 }
