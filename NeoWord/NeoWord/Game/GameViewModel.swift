@@ -44,7 +44,7 @@ final class GameViewModel {
         switch gameState {
         case .playing: "Round \(round)"
         case .finished(didWin: let didWin):
-            didWin ? "Ganasetess!" : "Perdistess!"
+            didWin ? "Ganasteee!" : "Perdisteee!"
         }
     }
     
