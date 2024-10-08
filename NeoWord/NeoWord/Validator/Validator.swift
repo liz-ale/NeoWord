@@ -39,7 +39,7 @@ final class GameValidator: Validator {
         assert(input.count == 5) // number of letters
         assert(currentWord.count == 5)
         
-        print("validating: \(input)")
+//        print("validating: \(input)")
         
         // 1. validate word exists
         guard try await wordStore.exist(word: input) else {

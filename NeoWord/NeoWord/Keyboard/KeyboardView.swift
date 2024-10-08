@@ -16,9 +16,7 @@ struct KeyboardView: View {
     let keys3 = ["Z", "X", "C", "V", "B", "N", "M"]
     
     var body: some View {
-        print("refreshing keyboard")
-        
-        return VStack {
+        VStack {
             // First row
             HStack(spacing: 8) {
                 ForEach(keys1, id: \.self) { key in
