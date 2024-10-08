@@ -17,33 +17,42 @@ enum LetterState {
 
 struct LetterBoxView: View {
     var letterBox: LetterBox?
-    
+
     @State private var scale: CGFloat = 1.0
+    @State private var offsetY: CGFloat = 0.0
     @State private var borderColor: Color = .gray
-    
+
     var body: some View {
         Text(letterBox?.letter ?? "")
             .frame(width: 60, height: 60)
             .background(backgroundColor)
             .cornerRadius(5)
             .font(.title)
-            .foregroundColor(textColor) // Se ajusta el color del texto
+            .foregroundColor(textColor)
             .overlay(
                 RoundedRectangle(cornerRadius: 5)
                     .stroke(borderColor, lineWidth: 2)
             )
             .scaleEffect(scale)
+            .offset(y: offsetY)
             .onAppear {
-                triggerAnimation() // Iniciar la animación cuando aparezca la letra
+                triggerAnimation()
             }
+            
+            
+            .onChange(of: letterBox?.isAnimating ?? false, perform: { isAnimating in
+                if isAnimating {
+                    triggerValidationAnimation()
+                }
+            })
             .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: scale)
             .animation(.easeInOut(duration: 0.3), value: borderColor)
+            .animation(.spring(), value: offsetY)
     }
-    
-    // Cambiar color según estado actual
+
     private var backgroundColor: Color {
         guard let letterBox = letterBox else { return .white }
-        
+
         return switch letterBox.state {
         case .empty:
             Color.white
@@ -55,26 +64,32 @@ struct LetterBoxView: View {
             Color.gray
         }
     }
-    
-    // Cambiar color del texto según el estado
+
     private var textColor: Color {
         guard let letterBox = letterBox else { return Color.black }
-        
-        // El texto es negro mientras se ingresa la letra (estado vacío)
         return letterBox.state == .empty ? Color.black : Color.white
     }
-    
-    // Activar animación de respiración
+
     private func triggerAnimation() {
         withAnimation {
             scale = 0.8
             borderColor = .gray
         }
 
-        // Restaurar al tamaño original
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             withAnimation {
                 scale = 1.0
+            }
+        }
+    }
+
+    private func triggerValidationAnimation() {
+        withAnimation {
+            offsetY = -10
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            withAnimation(.spring()) {
+                offsetY = 0
             }
         }
     }

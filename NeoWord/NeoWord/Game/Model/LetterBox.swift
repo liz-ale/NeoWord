@@ -9,6 +9,7 @@
 struct LetterBox: Equatable {
     var letter: String? = nil
     var state: LetterBoxState = .empty
+    var isAnimating: Bool = false
 }
 
 enum LetterBoxState: CaseIterable {

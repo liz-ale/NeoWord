@@ -74,6 +74,7 @@ final class GameViewModel {
                 firstIndex: p,
                 lastIndex: q
             )
+            
         } else {
             // letter pressed
             letterPressed(
@@ -116,6 +117,8 @@ final class GameViewModel {
                     var x = 0
                     for i in p...q {
                         grid[i].state = validations[x].state
+                        // Disparar la animación de rebote
+                                            grid[i].isAnimating = true
                         x += 1
                     }
                     
@@ -171,4 +174,6 @@ final class GameViewModel {
             }
         }
     }
+   
+    
 }
