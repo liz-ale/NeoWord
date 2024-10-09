@@ -8,16 +8,10 @@ import SwiftUI
 import Lottie
 
 struct WinAnimationView: View {
-    @Binding var isAnimationFinished: Bool
-    
+  
     var body: some View {
         LottieView(animation: .named("WinAnimation.json"))
-            .playbackMode(.playing(.toProgress(1, loopMode: .playOnce)))
-            .animationDidFinish { completed in
-                if completed {
-                    isAnimationFinished = true  
-                }
-            }
-            .animationSpeed(0.8)
+            .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
+
     }
 }
