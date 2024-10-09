@@ -8,27 +8,36 @@
 import Foundation
 import SwiftUI
 
-enum GameState {
+enum GameState: Equatable {  
     case playing
     case finished(didWin: Bool)
     
     var isPlaying: Bool {
         switch self {
-        case .playing: true
-        case .finished: false
+        case .playing:
+            return true
+        case .finished:
+            return false
         }
     }
 }
 
+
 @Observable
 final class GameViewModel {
-    
+    var gameState = GameState.playing {
+        didSet {
+            // la alerta se activa cuando termina el juego
+            showAlert = (gameState.isPlaying == false)
+        }
+    }
+
     private let gameValidator: GameValidator
     
     private let wordManager: WordStoreManager
     
     // game state
-    var gameState = GameState.playing
+   // var gameState = GameState.playing
     
     var currentWord: String = ""
     
@@ -56,8 +65,6 @@ final class GameViewModel {
         self.gameValidator = gameValidator
         self.wordManager = wordManager
         self.grid = grid
-        
-        // start game
         start()
     }
     
@@ -90,6 +97,7 @@ final class GameViewModel {
                 firstIndex: p,
                 lastIndex: q
             )
+            
         } else {
             // letter pressed
             letterPressed(
@@ -142,6 +150,8 @@ final class GameViewModel {
                     var x = 0
                     for i in p...q {
                         grid[i].state = validations[x].state
+                        // Disparar la animación de rebote
+                                            grid[i].isAnimating = true
                         x += 1
                     }
                     
@@ -202,4 +212,6 @@ final class GameViewModel {
             }
         }
     }
+   
+    
 }

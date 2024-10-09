@@ -15,27 +15,35 @@ struct GameView: View {
             VStack {
                 topBar
                 LetterGridView(grid: viewModel.grid)
-                KeyboardView(
-                    viewModel: viewModel
-                )
+                KeyboardView(viewModel: viewModel)
             }
             
+            // Mostrar el CustomDialog al terminar el juego
             if viewModel.showAlert {
                 CustomDialog(
                     isActive: $viewModel.showAlert,
-                    title: "El juego ha terminado!",
+                    title: "¡El juego ha terminado!" ,
                     message: viewModel.dialogMessage,
                     buttonTitle: "Empezar de nuevo",
-                    action: viewModel.reset
+                    action: {
+                        viewModel.reset()
+                    },
+                    // Determinar la animacion: ¿fue victoria?
+                    isVictory: viewModel.gameState == .finished(didWin: true)
                 )
             }
         }
     }
     
     var topBar: some View {
-        HStack(alignment: .top) {
-            menu
-            Spacer()
+        ZStack {
+            HStack {
+                menu
+                Spacer()
+            }
+            Text("NeoWord")
+                .font(.title)
+                .fontWeight(.bold)
         }
         .padding(.horizontal, 16)
     }
@@ -50,6 +58,7 @@ struct GameView: View {
         }
     }
 }
+
 
 #Preview {
     GameView()

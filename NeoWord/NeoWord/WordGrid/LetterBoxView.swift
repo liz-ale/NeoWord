@@ -17,33 +17,42 @@ enum LetterState {
 
 struct LetterBoxView: View {
     var letterBox: LetterBox?
-    
-    @State private var currentState: LetterState = .idle
+
     @State private var scale: CGFloat = 1.0
-    
+    @State private var offsetY: CGFloat = 0.0
+    @State private var borderColor: Color = .gray
+
     var body: some View {
         Text(letterBox?.letter ?? "")
-            .frame(width: 60, height: 60)
+            .frame(width: 50, height: 50)
             .background(backgroundColor)
             .cornerRadius(5)
             .font(.title)
             .foregroundColor(textColor)
             .overlay(
                 RoundedRectangle(cornerRadius: 5)
-                    .stroke(Color.gray, lineWidth: 1)
+                    .stroke(borderColor, lineWidth: 2)
             )
             .scaleEffect(scale)
-//            .onTapGesture {
-//                triggerAnimation()
-//            }
-//            .animation(.easeInOut(duration: 0.3), value: scale)
-//            .animation(.easeInOut(duration: 0.3), value: currentState)
+            .offset(y: offsetY)
+            .onAppear {
+                triggerAnimation()
+            }
+            
+            
+            .onChange(of: letterBox?.isAnimating ?? false, perform: { isAnimating in
+                if isAnimating {
+                    triggerValidationAnimation()
+                }
+            })
+            .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: scale)
+            .animation(.easeInOut(duration: 0.3), value: borderColor)
+            .animation(.spring(), value: offsetY)
     }
-    
-    //Cambiar color según estado actual
+
     private var backgroundColor: Color {
         guard let letterBox = letterBox else { return .white }
-        
+
         return switch letterBox.state {
         case .empty:
             Color.white
@@ -55,36 +64,33 @@ struct LetterBoxView: View {
             Color.gray
         }
     }
-    
-    // Cambiar color del texto según estado actual
+
     private var textColor: Color {
-        switch currentState {
-        case .idle, .zoom:
-            return Color.black
-        case .grayBackground, .greenBackground, .yellowBackground:
-            return Color.white
+        guard let letterBox = letterBox else { return Color.black }
+        return letterBox.state == .empty ? Color.black : Color.white
+    }
+
+    private func triggerAnimation() {
+        withAnimation {
+            scale = 0.8
+            borderColor = .gray
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            withAnimation {
+                scale = 1.0
+            }
         }
     }
-    
-    // Activar la animación y cambiar el estado
-    private func triggerAnimation() {
-        switch currentState {
-        case .idle:
-            withAnimation {
-                scale = 0.8 // Zoom out
-                currentState = .zoom
+
+    private func triggerValidationAnimation() {
+        withAnimation {
+            offsetY = -10
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            withAnimation(.spring()) {
+                offsetY = 0
             }
-            withAnimation(Animation.easeInOut(duration: 0.3).delay(0.3)) {
-                scale = 1.1 // Zoom in
-            }
-        case .zoom:
-            currentState = .grayBackground
-        case .grayBackground:
-            currentState = .greenBackground
-        case .greenBackground:
-            currentState = .yellowBackground
-        case .yellowBackground:
-            currentState = .idle
         }
     }
 }
