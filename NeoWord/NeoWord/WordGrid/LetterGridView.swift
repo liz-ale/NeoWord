@@ -11,7 +11,7 @@ struct LetterGridView: View {
     
     var grid: [LetterBox]
     
-    let columns: [GridItem] = Array(repeating: GridItem(.fixed(60), spacing: 10), count: 5)
+    let columns: [GridItem] = Array(repeating: GridItem(.fixed(50), spacing: 10), count: 5)
     
     var body: some View {
         LazyVGrid(columns: columns, spacing: 20) {
