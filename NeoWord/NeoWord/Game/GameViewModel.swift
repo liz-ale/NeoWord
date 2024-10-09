@@ -27,12 +27,11 @@ enum GameState: Equatable {
 final class GameViewModel {
     var gameState = GameState.playing {
         didSet {
-            // Activar la alerta cuando el juego termina
+            // la alerta se activa cuando termina el juego
             showAlert = (gameState.isPlaying == false)
         }
     }
 
-    
     private let gameValidator: GameValidator
     
     private let wordManager: WordStoreManager
@@ -66,8 +65,6 @@ final class GameViewModel {
         self.gameValidator = gameValidator
         self.wordManager = wordManager
         self.grid = grid
-        
-        // start game
         start()
     }
     

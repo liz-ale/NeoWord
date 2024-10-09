@@ -89,13 +89,14 @@ struct CustomDialog: View {
 }
 
 
-//#Preview {
-//    CustomDialog(
-//        isActive: .constant(true),
-//        title: "Felicidades",
-//        message: "+100 puntos",
-//        buttonTitle: "Continuar",
-//        action: {
-//        }
-//    )
-//}
+#Preview {
+    CustomDialog(
+        isActive: .constant(true),
+        title: "Felicidades",
+        message: "+100 puntos",
+        buttonTitle: "Continuar",
+        action: {
+        },
+        isVictory: true  
+    )
+}

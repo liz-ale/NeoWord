@@ -22,8 +22,8 @@ struct GameView: View {
             if viewModel.showAlert {
                 CustomDialog(
                     isActive: $viewModel.showAlert,
-                    title: viewModel.dialogMessage,
-                    message: "",
+                    title: "¡El juego ha terminado!" ,
+                    message: viewModel.dialogMessage,
                     buttonTitle: "Empezar de nuevo",
                     action: {
                         viewModel.reset()
