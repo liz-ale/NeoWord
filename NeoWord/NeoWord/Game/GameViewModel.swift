@@ -10,7 +10,14 @@ import SwiftUI
 
 enum GameState {
     case playing
-    case finished
+    case finished(didWin: Bool)
+    
+    var isPlaying: Bool {
+        switch self {
+        case .playing: true
+        case .finished: false
+        }
+    }
 }
 
 @Observable
@@ -31,6 +38,16 @@ final class GameViewModel {
     
     var round = 1
     
+    var showAlert: Bool = false
+    
+    var dialogMessage: String {
+        switch gameState {
+        case .playing: "Round \(round)"
+        case .finished(didWin: let didWin):
+            didWin ? "Ganasteee!" : "Perdisteee!"
+        }
+    }
+    
     init(
         gameValidator: GameValidator = .init(),
         wordManager: WordStoreManager = .init(),
@@ -39,7 +56,6 @@ final class GameViewModel {
         self.gameValidator = gameValidator
         self.wordManager = wordManager
         self.grid = grid
-        
         
         // start game
         start()
@@ -57,7 +73,7 @@ final class GameViewModel {
     
     
     func appendLetter(letter: String) {
-        guard gameState == .playing else { return }
+        guard gameState.isPlaying else { return }
         
         let q = (round * 5) - 1
         let p = q - 4
@@ -83,6 +99,16 @@ final class GameViewModel {
                 lastIndex: q
             )
         }
+    }
+    
+    func reset() {
+        grid.removeAll()
+        keyboardStates.removeAll(keepingCapacity: true)
+        
+        gameState = .playing
+        round = 1
+        
+        start()
     }
     
     private func deletePressed(currentPosition: Int, firstIndex p: Int) {
@@ -166,8 +192,13 @@ final class GameViewModel {
                     }
                     
                     if finished {
-                        gameState = .finished
+                        gameState = .finished(didWin: true)
+                        showAlert = true
+                    } else if round == 6 {
+                        gameState = .finished(didWin: false)
+                        showAlert = true
                     }
+                    
                     
                     round += round < 6 ? 1 : 0
                 }
