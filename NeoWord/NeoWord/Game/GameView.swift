@@ -15,18 +15,21 @@ struct GameView: View {
             VStack {
                 topBar
                 LetterGridView(grid: viewModel.grid)
-                KeyboardView(
-                    viewModel: viewModel
-                )
+                KeyboardView(viewModel: viewModel)
             }
             
+            // Mostrar el CustomDialog al terminar el juego
             if viewModel.showAlert {
                 CustomDialog(
                     isActive: $viewModel.showAlert,
-                    title: "El juego ha terminado!",
-                    message: viewModel.dialogMessage,
+                    title: viewModel.dialogMessage,
+                    message: "",
                     buttonTitle: "Empezar de nuevo",
-                    action: viewModel.reset
+                    action: {
+                        viewModel.reset()
+                    },
+                    // Determinar la animacion: ¿fue victoria?
+                    isVictory: viewModel.gameState == .finished(didWin: true)
                 )
             }
         }
@@ -38,7 +41,7 @@ struct GameView: View {
                 menu
                 Spacer()
             }
-            Text("NeoWord") // Nombre de la app centrado
+            Text("NeoWord")
                 .font(.title)
                 .fontWeight(.bold)
         }
@@ -55,6 +58,7 @@ struct GameView: View {
         }
     }
 }
+
 
 #Preview {
     GameView()

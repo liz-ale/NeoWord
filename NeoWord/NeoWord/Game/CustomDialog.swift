@@ -10,16 +10,16 @@ import SwiftUI
 struct CustomDialog: View {
     
     @Binding var isActive: Bool
-    
     let title: String
     let message: String
     let buttonTitle: String
     let action: () -> Void
+    let isVictory: Bool
     
     @State private var offset: CGFloat = 1000
-    
     @State private var backgroundOpacity: CGFloat = 0.0
-    
+    @State private var isAnimationFinished = false  // Estado de la animación
+
     var body: some View {
         ZStack {
             Color(.gray)
@@ -27,29 +27,39 @@ struct CustomDialog: View {
                 .ignoresSafeArea()
             
             VStack {
-                Text(title)
-                    .font(.title2)
-                    .bold()
-                    .padding()
-                
-                Text(message)
-                    .font(.body)
-                
-                Button {
-                    action()
-                    close()
-                } label: {
-                    Text(buttonTitle)
-                        .font(.title3)
-                        .foregroundStyle(.white)
+                if !isAnimationFinished {
+                    if isVictory {
+                        WinAnimationView(isAnimationFinished: $isAnimationFinished)
+                            .frame(width: 300, height: 300)
+                    } else {
+                        LooseAnimationView(isLooseAnimationFinished: $isAnimationFinished)
+                            .frame(width: 300, height: 300)
+                    }
+                } else {
+                    
+                    Text(title)
+                        .font(.title2)
+                        .bold()
                         .padding()
-                        .frame(maxWidth: .infinity)
-                        .background {
-                            RoundedRectangle(cornerRadius: 8)
-                                .foregroundStyle(.cyan)
-                            
-                        }
-                        .padding()
+                    
+                    Text(message)
+                        .font(.body)
+                    
+                    Button {
+                        action()
+                        close()
+                    } label: {
+                        Text(buttonTitle)
+                            .font(.title3)
+                            .foregroundStyle(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .foregroundStyle(.cyan)
+                            }
+                            .padding()
+                    }
                 }
             }
             .fixedSize(horizontal: false, vertical: true)
@@ -78,13 +88,14 @@ struct CustomDialog: View {
     }
 }
 
-#Preview {
-    CustomDialog(
-        isActive: .constant(true),
-        title: "Felicidades",
-        message: "+100 puntos",
-        buttonTitle: "Continuar",
-        action: {
-        }
-    )
-}
+
+//#Preview {
+//    CustomDialog(
+//        isActive: .constant(true),
+//        title: "Felicidades",
+//        message: "+100 puntos",
+//        buttonTitle: "Continuar",
+//        action: {
+//        }
+//    )
+//}

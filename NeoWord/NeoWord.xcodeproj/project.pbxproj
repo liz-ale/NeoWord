@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1859D1E22CB70AA400637F6C /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1859D1E12CB70AA400637F6C /* Lottie */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		18A6569E2CB07FCA004B7537 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -46,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1859D1E22CB70AA400637F6C /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,6 +118,7 @@
 			);
 			name = NeoWord;
 			packageProductDependencies = (
+				1859D1E12CB70AA400637F6C /* Lottie */,
 			);
 			productName = NeoWord;
 			productReference = 18E47CA32CA70FB5001C1D68 /* NeoWord.app */;
@@ -146,6 +152,9 @@
 			);
 			mainGroup = 18E47C9A2CA70FB5001C1D68;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				1859D1E02CB70AA400637F6C /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 18E47CA42CA70FB5001C1D68 /* Products */;
 			projectDirPath = "";
@@ -440,6 +449,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1859D1E02CB70AA400637F6C /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1859D1E12CB70AA400637F6C /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1859D1E02CB70AA400637F6C /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 18E47C9B2CA70FB5001C1D68 /* Project object */;
 }
