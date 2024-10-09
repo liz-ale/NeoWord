@@ -33,9 +33,14 @@ struct GameView: View {
     }
     
     var topBar: some View {
-        HStack(alignment: .top) {
-            menu
-            Spacer()
+        ZStack {
+            HStack {
+                menu
+                Spacer()
+            }
+            Text("NeoWord") // Nombre de la app centrado
+                .font(.title)
+                .fontWeight(.bold)
         }
         .padding(.horizontal, 16)
     }
