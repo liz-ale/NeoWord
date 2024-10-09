@@ -4,7 +4,6 @@
 //
 //  Created by julian.garcia on 08/10/24.
 //
-
 import SwiftUI
 
 struct CustomDialog: View {
@@ -18,65 +17,64 @@ struct CustomDialog: View {
     
     @State private var offset: CGFloat = 1000
     @State private var backgroundOpacity: CGFloat = 0.0
-    @State private var isAnimationFinished = false  // Estado de la animación
-
+   
     var body: some View {
         ZStack {
-            Color(.gray)
+            Color(.white)
                 .opacity(backgroundOpacity)
                 .ignoresSafeArea()
             
             VStack {
-                if !isAnimationFinished {
-                    if isVictory {
-                        WinAnimationView(isAnimationFinished: $isAnimationFinished)
-                            .frame(width: 300, height: 300)
-                    } else {
-                        LooseAnimationView(isLooseAnimationFinished: $isAnimationFinished)
-                            .frame(width: 300, height: 300)
-                    }
+                
+                if isVictory {
+                    WinAnimationView()
+                        .frame(width: 150, height: 150)
+                        .foregroundStyle(.white)
                 } else {
-                    
-                    Text(title)
-                        .font(.title2)
-                        .bold()
-                        .padding()
-                    
-                    Text(message)
-                        .font(.body)
-                    
-                    Button {
-                        action()
-                        close()
-                    } label: {
-                        Text(buttonTitle)
-                            .font(.title3)
-                            .foregroundStyle(.white)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .foregroundStyle(.cyan)
-                            }
-                            .padding()
-                    }
+                    LooseAnimationView()
+                        .frame(width: 150, height: 150)
                 }
-            }
-            .fixedSize(horizontal: false, vertical: true)
-            .frame(minWidth: 200, maxWidth: 500)
-            .padding()
-            .background()
-            .clipShape(RoundedRectangle(cornerRadius: 20))
-            .shadow(radius: 20)
-            .padding()
-            .offset(x: 0, y: offset)
-            .onAppear {
-                withAnimation(.spring()) {
-                    backgroundOpacity = 0.6
-                    offset = 0
+                
+                Text(title)
+                    .font(.title2)
+                    .bold()
+                    .padding()
+                
+                Text(message)
+                    .font(.body)
+                
+                Button {
+                    action()
+                    close()
+                } label: {
+                    Text(buttonTitle)
+                        .font(.title3)
+                        .foregroundStyle(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background {
+                            RoundedRectangle(cornerRadius: 8)
+                                .foregroundStyle(.cyan)
+                        }
+                        .padding()
                 }
             }
         }
+        .fixedSize(horizontal: false, vertical: true)
+        .frame(minWidth: 200, maxWidth: 500)
+        .padding()
+        .background()
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .shadow(radius: 20)
+        .padding()
+        .offset(x: 0, y: offset)
+        .onAppear {
+            withAnimation(.spring()) {
+                backgroundOpacity = 0.6
+                offset = 0
+            }
+        }
+        
     }
     
     func close() {
@@ -88,7 +86,6 @@ struct CustomDialog: View {
     }
 }
 
-
 #Preview {
     CustomDialog(
         isActive: .constant(true),
@@ -97,6 +94,6 @@ struct CustomDialog: View {
         buttonTitle: "Continuar",
         action: {
         },
-        isVictory: true  
+        isVictory: false
     )
 }
