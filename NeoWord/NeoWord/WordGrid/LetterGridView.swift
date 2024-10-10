@@ -11,21 +11,26 @@ struct LetterGridView: View {
     
     var grid: [LetterBox]
     
-    let columns: [GridItem] = Array(repeating: GridItem(.fixed(50), spacing: 10), count: 5)
-    
     var body: some View {
-        LazyVGrid(columns: columns, spacing: 20) {
-            ForEach(0..<30, id: \.self) { index in
-                if index < grid.count {
-                    LetterBoxView(letterBox: grid[index])
-                } else {
-                    LetterBoxView(letterBox: nil)
+        VStack(spacing: 10) {
+            ForEach(0..<6) { row in
+                HStack(spacing: 10) {
+                    ForEach(0..<5) { column in
+                        let index = row * 5 + column
+                        if index < grid.count {
+                            LetterBoxView(letterBox: grid[index])
+                        } else {
+                            LetterBoxView(letterBox: nil)
+                        }
+                    }
                 }
             }
         }
+        .frame(width: Global.boardWidth, height: 6 * Global.boardWidth / 5 )
         .padding()
     }
 }
+
 
 #Preview {
     LetterGridView(grid: [])

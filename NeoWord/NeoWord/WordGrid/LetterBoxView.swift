@@ -24,7 +24,8 @@ struct LetterBoxView: View {
 
     var body: some View {
         Text(letterBox?.letter ?? "")
-            .frame(width: 50, height: 50)
+            //.frame(width: 50, height: 50)
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
             .background(backgroundColor)
             .cornerRadius(5)
             .font(.title)
