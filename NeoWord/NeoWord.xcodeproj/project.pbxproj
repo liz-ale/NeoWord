@@ -7,30 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1859D1E22CB70AA400637F6C /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1859D1E12CB70AA400637F6C /* Lottie */; };
+		18CACC892CB851E00038CD4C /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 18CACC882CB851E00038CD4C /* Lottie */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		18A6569E2CB07FCA004B7537 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 18E47C9B2CA70FB5001C1D68 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 18E47CA22CA70FB5001C1D68;
-			remoteInfo = NeoWord;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		18A6569A2CB07FCA004B7537 /* NeoWordTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NeoWordTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18E47CA32CA70FB5001C1D68 /* NeoWord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeoWord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		18A6569B2CB07FCA004B7537 /* NeoWordTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = NeoWordTests;
-			sourceTree = "<group>";
-		};
 		18E47CA52CA70FB5001C1D68 /* NeoWord */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = NeoWord;
@@ -39,18 +23,11 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		18A656972CB07FCA004B7537 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		18E47CA02CA70FB5001C1D68 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1859D1E22CB70AA400637F6C /* Lottie in Frameworks */,
+				18CACC892CB851E00038CD4C /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +38,6 @@
 			isa = PBXGroup;
 			children = (
 				18E47CA52CA70FB5001C1D68 /* NeoWord */,
-				18A6569B2CB07FCA004B7537 /* NeoWordTests */,
 				18E47CA42CA70FB5001C1D68 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,7 +46,6 @@
 			isa = PBXGroup;
 			children = (
 				18E47CA32CA70FB5001C1D68 /* NeoWord.app */,
-				18A6569A2CB07FCA004B7537 /* NeoWordTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -78,29 +53,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		18A656992CB07FCA004B7537 /* NeoWordTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 18A656A02CB07FCA004B7537 /* Build configuration list for PBXNativeTarget "NeoWordTests" */;
-			buildPhases = (
-				18A656962CB07FCA004B7537 /* Sources */,
-				18A656972CB07FCA004B7537 /* Frameworks */,
-				18A656982CB07FCA004B7537 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				18A6569F2CB07FCA004B7537 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				18A6569B2CB07FCA004B7537 /* NeoWordTests */,
-			);
-			name = NeoWordTests;
-			packageProductDependencies = (
-			);
-			productName = NeoWordTests;
-			productReference = 18A6569A2CB07FCA004B7537 /* NeoWordTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		18E47CA22CA70FB5001C1D68 /* NeoWord */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18E47CB12CA70FB6001C1D68 /* Build configuration list for PBXNativeTarget "NeoWord" */;
@@ -118,7 +70,7 @@
 			);
 			name = NeoWord;
 			packageProductDependencies = (
-				1859D1E12CB70AA400637F6C /* Lottie */,
+				18CACC882CB851E00038CD4C /* Lottie */,
 			);
 			productName = NeoWord;
 			productReference = 18E47CA32CA70FB5001C1D68 /* NeoWord.app */;
@@ -134,10 +86,6 @@
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
-					18A656992CB07FCA004B7537 = {
-						CreatedOnToolsVersion = 16.0;
-						TestTargetID = 18E47CA22CA70FB5001C1D68;
-					};
 					18E47CA22CA70FB5001C1D68 = {
 						CreatedOnToolsVersion = 16.0;
 					};
@@ -153,7 +101,7 @@
 			mainGroup = 18E47C9A2CA70FB5001C1D68;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				1859D1E02CB70AA400637F6C /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				18CACC872CB851E00038CD4C /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 18E47CA42CA70FB5001C1D68 /* Products */;
@@ -161,19 +109,11 @@
 			projectRoot = "";
 			targets = (
 				18E47CA22CA70FB5001C1D68 /* NeoWord */,
-				18A656992CB07FCA004B7537 /* NeoWordTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		18A656982CB07FCA004B7537 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		18E47CA12CA70FB5001C1D68 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -184,13 +124,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		18A656962CB07FCA004B7537 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		18E47C9F2CA70FB5001C1D68 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -200,49 +133,7 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		18A6569F2CB07FCA004B7537 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 18E47CA22CA70FB5001C1D68 /* NeoWord */;
-			targetProxy = 18A6569E2CB07FCA004B7537 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		18A656A12CB07FCA004B7537 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = lv.NeoWordTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NeoWord.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NeoWord";
-			};
-			name = Debug;
-		};
-		18A656A22CB07FCA004B7537 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = lv.NeoWordTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NeoWord.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NeoWord";
-			};
-			name = Release;
-		};
 		18E47CAF2CA70FB6001C1D68 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -421,15 +312,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		18A656A02CB07FCA004B7537 /* Build configuration list for PBXNativeTarget "NeoWordTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				18A656A12CB07FCA004B7537 /* Debug */,
-				18A656A22CB07FCA004B7537 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		18E47C9E2CA70FB5001C1D68 /* Build configuration list for PBXProject "NeoWord" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -451,7 +333,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1859D1E02CB70AA400637F6C /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+		18CACC872CB851E00038CD4C /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
 			requirement = {
@@ -462,9 +344,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1859D1E12CB70AA400637F6C /* Lottie */ = {
+		18CACC882CB851E00038CD4C /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1859D1E02CB70AA400637F6C /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			package = 18CACC872CB851E00038CD4C /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
